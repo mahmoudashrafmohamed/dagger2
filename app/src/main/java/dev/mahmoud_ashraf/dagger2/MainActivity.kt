@@ -2,6 +2,7 @@ package dev.mahmoud_ashraf.dagger2
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import dev.mahmoud_ashraf.dagger2.di.BraavosModule
 import dev.mahmoud_ashraf.dagger2.di.DaggerBattleComponent
 
 class MainActivity : AppCompatActivity() {
@@ -18,9 +19,16 @@ class MainActivity : AppCompatActivity() {
 //        war.prepare();
 //        war.report();
 
-        val component = DaggerBattleComponent.create()
+        val cash = Cash()
+        val soldiers = Soldiers()
+
+        val component = DaggerBattleComponent.builder().braavosModule(BraavosModule(cash,soldiers)).build()
         val war = component.getWar()
         war.prepare()
         war.report()
+
+        //
+        component.getCash();
+        component.getSoldiers();
     }
 }
